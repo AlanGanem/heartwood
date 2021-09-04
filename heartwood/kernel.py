@@ -301,7 +301,6 @@ class CategoricalKernel(EstimatorKernel):
 
         return super().fit(X, y, save_values, **kwargs)
 
-
     def transform(self, X):
         '''
         multiplies sparse vector to its coef_ s from linear model.
@@ -315,13 +314,18 @@ class CategoricalKernel(EstimatorKernel):
         else:
             coefs = self.estimator.coef_
 
+        #create attr if it does now exist yet:
+        #this line is supposed to run only during fit call
+        if not hasattr(self,'dim_embeddings_'):
+            self.dim_embeddings_ = len(X[0].data)
+
         if len(coefs.shape) == 1:
             coefs = coefs.reshape(1,-1)
 
         embeddings = []
         for dim in range(coefs.shape[0]):
             #assumes all rows have the same ammount of nonzero elements
-            dim_embeddings = coefs[dim, X.nonzero()[1]].reshape(X.shape[0], len(X[0].data))
+            dim_embeddings = coefs[dim, X.nonzero()[1]].reshape(X.shape[0], self.dim_embeddings_)
             embeddings.append(dim_embeddings)
 
         return hstack(embeddings)
