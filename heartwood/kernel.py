@@ -7,6 +7,7 @@ __all__ = ['make_batches', 'sparsify', 'sim_matrix_to_idx_and_score', 'cosine_si
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.preprocessing import normalize, OneHotEncoder, OrdinalEncoder
 from sklearn.ensemble import RandomTreesEmbedding, RandomForestClassifier
+from sklearn.pipeline import make_pipeline
 
 from scipy import sparse
 import numpy as np
@@ -288,14 +289,14 @@ class CategoricalKernel(EstimatorKernel):
     kernel space is defined by liner model coefficients indexed by the nonzero elements
     of X
     '''
-    def __init__(self, estimator, norm = 'l2', use_encoder = False):
-        self.use_encoder = use_encoder
+    def __init__(self, estimator, norm = 'l2', encode = False):
+        self.encode = encode
         super().__init__(estimator, norm)
         return
 
     def fit(self, X, y = None, save_values = None, **kwargs):
 
-        if self.use_encoder:
+        if self.encode:
             self.estimator = make_pipeline(RobustEncoder(), self.estimator)
 
         return super().fit(X, y, save_values, **kwargs)
@@ -308,7 +309,7 @@ class CategoricalKernel(EstimatorKernel):
         n*original_n_features_before_one_hot_encoding
         '''
 
-        if self.use_encoder:
+        if self.encode:
             coefs = self.estimator[-1].coef_
             X = self.estimator[0].transform(X)
         else:
