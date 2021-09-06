@@ -145,6 +145,12 @@ class EstimatorKernel(BaseEstimator, TransformerMixin):
         self.projection_method = projection_method
         self.norm = norm
 
+    def __getattr__(self, attr):
+        '''
+        Allows accessing self.estimator attributes if not found in first object level
+        '''
+        return getattr(self.estimator, attr)
+
     def transform(self, X):
         '''
         projects X into new space, according to projection_method
@@ -372,6 +378,7 @@ class MLPKernel(EstimatorKernel):
 # Cell
 class BOWKernel(MLPKernel):
     '''
-    `MLPKernel` Alias, intended for Bag Of Words application
+    `MLPKernel` Alias, intended for Bag Of Words application.
+    Generates supervised embeddings (context specific embeddings)
     '''
     pass
