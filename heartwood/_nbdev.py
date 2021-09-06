@@ -13,7 +13,9 @@ index = {"make_batches": "kernel.ipynb",
          "RobustEncoder": "kernel.ipynb",
          "EstimatorKernel": "kernel.ipynb",
          "ForestKernel": "kernel.ipynb",
-         "CategoricalKernel": "kernel.ipynb"}
+         "LinearKernel": "kernel.ipynb",
+         "MLPKernel": "kernel.ipynb",
+         "BOWKernel": "kernel.ipynb"}
 
 modules = ["kernel.py"]
 
