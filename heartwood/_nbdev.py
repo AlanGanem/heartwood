@@ -2,22 +2,32 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"make_batches": "kernel.ipynb",
-         "sparsify": "kernel.ipynb",
-         "sim_matrix_to_idx_and_score": "kernel.ipynb",
-         "cosine_similarity": "kernel.ipynb",
-         "cosine_distance": "kernel.ipynb",
-         "hstack": "kernel.ipynb",
-         "vstack": "kernel.ipynb",
-         "stack": "kernel.ipynb",
-         "RobustEncoder": "kernel.ipynb",
-         "EstimatorKernel": "kernel.ipynb",
-         "ForestKernel": "kernel.ipynb",
-         "LinearKernel": "kernel.ipynb",
+index = {"EstimatorKernel": "kernel.ipynb",
+         "SparseForestKernel": "kernel.ipynb",
+         "DenseForestKernel": "kernel.ipynb",
+         "CategoricalLinearKernel": "kernel.ipynb",
+         "ClassificationLinearBottleneck": "kernel.ipynb",
+         "RegressionLinearBottleneck": "kernel.ipynb",
          "MLPKernel": "kernel.ipynb",
-         "BOWKernel": "kernel.ipynb"}
+         "BOWKernel": "kernel.ipynb",
+         "NMSLibSklearnWrapper": "neighbors.ipynb",
+         "FastJaccardNN": "neighbors.ipynb",
+         "get_default_args": "utils.ipynb",
+         "inherit_docstrings": "utils.ipynb",
+         "make_batches": "utils.ipynb",
+         "sim_matrix_to_idx_and_score": "utils.ipynb",
+         "cosine_similarity": "utils.ipynb",
+         "cosine_distance": "utils.ipynb",
+         "similarity_plot": "utils.ipynb",
+         "sparsify": "utils.ipynb",
+         "hstack": "utils.ipynb",
+         "vstack": "utils.ipynb",
+         "stack": "utils.ipynb",
+         "RobustEncoder": "utils.ipynb"}
 
-modules = ["kernel.py"]
+modules = ["kernel.py",
+           "neighbors.py",
+           "utils.py"]
 
 doc_url = "https://AlanGanem.github.io/heartwood/"
 
