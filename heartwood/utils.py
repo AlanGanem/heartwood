@@ -124,9 +124,21 @@ def sparsify(*arrs):
 def _robust_stack(blocks, stack_method = 'stack', **kwargs):
 
     if any(sparse.issparse(i) for i in blocks):
+        #handle sparse
         stacked = getattr(sparse, stack_method)(blocks, **kwargs)
+
     else:
-        stacked = getattr(np, stack_method)(blocks, **kwargs)
+        #handle pandas
+        if all(hasattr(i, 'iloc') for i in blocks):
+            if stack_method == 'hstack':
+                stacked = pd.concat(blocks, axis = 1)
+            else:
+                stacked = pd.concat(blocks, axis = 0)
+
+        else:
+            #handle  numpy
+            stacked = getattr(np, stack_method)(blocks, **kwargs)
+
     return stacked
 
 def hstack(blocks, **kwargs):
