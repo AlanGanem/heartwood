@@ -21,10 +21,6 @@ from sklearn.datasets import fetch_california_housing
 from heartwood.kernel import JaccardForestKernel, MLPKernel, DiscretizedTargetKernel, make_bimodal_assymetric_regression
 ```
 
-    ..\heartwood\utils.py:20: UserWarning: could not load sparse_dot_topn: No module named 'sparse_dot_topn'
-      warn(f'could not load sparse_dot_topn: {e}')
-    
-
 ```python
 X_bimodal, y_bimodal = make_bimodal_assymetric_regression(10_000)
 ```
@@ -218,10 +214,6 @@ housing
 sns.distplot(housing.iloc[:,-1])
 ```
 
-    c:\users\user ambev\desktop\mypackages\heartwood\venv\lib\site-packages\seaborn\distributions.py:2619: FutureWarning: `distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
-      warnings.warn(msg, FutureWarning)
-    
-
 
 
 
@@ -230,7 +222,7 @@ sns.distplot(housing.iloc[:,-1])
 
 
 
-![png](docs/images/output_9_2.png)
+![png](docs/images/output_9_1.png)
 
 
 # JaccardForestKernel
@@ -286,25 +278,15 @@ plt.axvline(housing_test.iloc[idx][target_col], color = 'r')
 
 ```
 
-    c:\users\user ambev\desktop\mypackages\heartwood\venv\lib\site-packages\ipykernel_launcher.py:6: SettingWithCopyWarning: 
-    A value is trying to be set on a copy of a slice from a DataFrame.
-    Try using .loc[row_indexer,col_indexer] = value instead
-    
-    See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-      
-    c:\users\user ambev\desktop\mypackages\heartwood\venv\lib\site-packages\seaborn\distributions.py:2619: FutureWarning: `distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
-      warnings.warn(msg, FutureWarning)
-    
+
+
+
+    <matplotlib.lines.Line2D at 0x17834339e08>
 
 
 
 
-    <matplotlib.lines.Line2D at 0x1782ede9708>
-
-
-
-
-![png](docs/images/output_15_2.png)
+![png](docs/images/output_15_1.png)
 
 
 ```python
@@ -507,18 +489,6 @@ disc_learner.fit(
 )
 ```
 
-    c:\users\user ambev\desktop\mypackages\heartwood\venv\lib\site-packages\sklearn\utils\validation.py:993: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples, ), for example using ravel().
-      y = column_or_1d(y, warn=True)
-    c:\users\user ambev\desktop\mypackages\heartwood\venv\lib\site-packages\sklearn\linear_model\_logistic.py:818: ConvergenceWarning: lbfgs failed to converge (status=1):
-    STOP: TOTAL NO. of ITERATIONS REACHED LIMIT.
-    
-    Increase the number of iterations (max_iter) or scale the data as shown in:
-        https://scikit-learn.org/stable/modules/preprocessing.html
-    Please also refer to the documentation for alternative solver options:
-        https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
-      extra_warning_msg=_LOGISTIC_SOLVER_CONVERGENCE_MSG,
-    
-
 
 
 
@@ -544,25 +514,15 @@ plt.axvline(housing_test.iloc[idx][target_col], color = 'r')
 
 ```
 
-    c:\users\user ambev\desktop\mypackages\heartwood\venv\lib\site-packages\ipykernel_launcher.py:3: SettingWithCopyWarning: 
-    A value is trying to be set on a copy of a slice from a DataFrame.
-    Try using .loc[row_indexer,col_indexer] = value instead
-    
-    See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
-      This is separate from the ipykernel package so we can avoid doing imports until
-    c:\users\user ambev\desktop\mypackages\heartwood\venv\lib\site-packages\seaborn\distributions.py:2619: FutureWarning: `distplot` is a deprecated function and will be removed in a future version. Please adapt your code to use either `displot` (a figure-level function with similar flexibility) or `histplot` (an axes-level function for histograms).
-      warnings.warn(msg, FutureWarning)
-    
+
+
+
+    <matplotlib.lines.Line2D at 0x1782f883fc8>
 
 
 
 
-    <matplotlib.lines.Line2D at 0x178341561c8>
-
-
-
-
-![png](docs/images/output_22_2.png)
+![png](docs/images/output_22_1.png)
 
 
 ```python
