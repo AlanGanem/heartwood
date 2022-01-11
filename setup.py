@@ -5,26 +5,35 @@ assert parse_version(setuptools.__version__)>=parse_version('36.2')
 
 def get_requirements():
     """
-    Return requirements as list.
+    Return requirements  and dependency links as list.
 
-    package1==1.0.3
-    package2==0.0.5
-    
-    THANKS TO tripleee at https://stackoverflow.com/questions/69842651/parse-error-in-pip-e-gith-expected-wabcd/69843444
+   
+    THANKS TO Gonzalo Ordiard at https://stackoverflow.com/questions/32688688/how-to-write-setup-py-to-include-a-git-repository-as-a-dependency
     """
+    required = []
+    dependency_links = []
+
     with open('requirements.txt') as f:
-        packages = []
-        for line in f:
-            line = line.strip()
-            # let's also ignore empty lines and comments
-            if not line or line.startswith('#'):
-                continue
-            if 'https://' in line:
-                tail = line.rsplit('/', 1)[1]
-                tail = tail.split('#')[0]
-                line = tail.replace('@', '==').replace('.git', '')
-            packages.append(line)
-    return packages
+        requirements = f.read().splitlines()
+    # Do not add to required lines pointing to Git repositories
+    EGG_MARK = '#egg='
+    for line in requirements:
+        if line.startswith('-e git:') or line.startswith('-e git+') or \
+                line.startswith('git:') or line.startswith('git+'):
+            line = line.lstrip('-e ')  # in case that is using "-e"
+            if EGG_MARK in line:
+                package_name = line[line.find(EGG_MARK) + len(EGG_MARK):]
+                repository = line[:line.find(EGG_MARK)]
+                required.append('%s @ %s' % (package_name, repository))
+                dependency_links.append(line)
+            else:
+                print('Dependency to a git repository should have the format:')
+                print('git+ssh://git@github.com/xxxxx/xxxxxx#egg=package_name')
+                print('got:')
+                print(f'{line}')
+        else:
+            required.append(line)
+    return required, dependency_links
 
 # note: all settings are in settings.ini; edit there, not here
 config = ConfigParser(delimiters=['='])
@@ -44,7 +53,7 @@ statuses = [ '1 - Planning', '2 - Pre-Alpha', '3 - Alpha',
 py_versions = '2.0 2.1 2.2 2.3 2.4 2.5 2.6 2.7 3.0 3.1 3.2 3.3 3.4 3.5 3.6 3.7 3.8'.split()
 
 #requirements = cfg.get('requirements','').split()
-requirements = get_requirements()    
+requirements, dependency_links = get_requirements()    
 lic = licenses[cfg['license']]
 min_python = cfg['min_python']
 
@@ -61,7 +70,7 @@ setuptools.setup(
     packages = setuptools.find_packages(),
     include_package_data = True,
     install_requires = requirements,
-    dependency_links = cfg.get('dep_links','').split(),
+    dependency_links = cfg.get('dep_links','').split() + dependency_links,
     python_requires  = '>=' + cfg['min_python'],
     long_description = open('README.md').read(),
     long_description_content_type = 'text/markdown',
