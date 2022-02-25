@@ -1,4 +1,6 @@
 numpy
 scipy
 pandas
+scikit-network
+scikit-learn
 git+https://github.com/AlanGanem/NMSLearn@master#egg=nmslearn
